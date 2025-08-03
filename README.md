@@ -155,4 +155,4 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 ---
 
-⭐ **N'oubliez pas de donner une étoile au projet si vous l'aimez !**
+⭐ **N'oubliez pas de donner une étoile au projet si vous l'aimez !**# Force redeploy for Streamlit Cloud
