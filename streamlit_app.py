@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import plotly.express as px
 import plotly.graph_objects as go
-from datetime import datetime
+from datetime import datetime, timedelta
 import seaborn as sns
 
 # Configuration de la page
@@ -20,17 +20,115 @@ st.set_page_config(
 st.title("🦷 Audit Analytique d'un Cabinet Dentaire Multi-Sites")
 st.markdown("---")
 
+# Fonction pour créer des données simulées
+def create_sample_data():
+    """Créer des données simulées pour l'application"""
+    np.random.seed(42)
+    
+    # Paramètres
+    n_patients = 8300
+    n_records = 10200
+    
+    # Types de soins
+    types_soins = [
+        'Consultation', 'Détartrage', 'Obturation', 'Canal', 'Couronne',
+        'Implant', 'Extraction', 'Radiographie', 'Nettoyage', 'Examen'
+    ]
+    
+    # Cliniques
+    cliniques = [
+        'Clinique Lausanne Centre', 'Clinique Genève', 'Clinique Fribourg',
+        'Clinique Neuchâtel', 'Clinique Berne', 'Clinique Zurich'
+    ]
+    
+    # Praticiens
+    praticiens = [f'Dr. {nom}' for nom in [
+        'Martin', 'Dubois', 'Bernard', 'Thomas', 'Robert', 'Richard',
+        'Petit', 'Durand', 'Leroy', 'Moreau', 'Simon', 'Laurent',
+        'Lefebvre', 'Michel', 'Garcia', 'David', 'Bertrand', 'Roux',
+        'Vincent', 'Fournier', 'Morel', 'Girard', 'Andre', 'Lefort',
+        'Mercier', 'Dupuis', 'Lambert', 'Bonnet', 'Francois', 'Martinez'
+    ]]
+    
+    # Générer les données
+    data = []
+    start_date = datetime(2024, 1, 1)
+    
+    for i in range(n_records):
+        # Patient ID
+        patient_id = f'P{str(np.random.randint(1000, 9999)).zfill(5)}'
+        
+        # Date aléatoire
+        random_days = np.random.randint(0, 365)
+        date_soin = start_date + timedelta(days=random_days)
+        
+        # Type de soin
+        type_soin = np.random.choice(types_soins)
+        
+        # Montant selon le type de soin
+        montants = {
+            'Consultation': (80, 120),
+            'Détartrage': (120, 180),
+            'Obturation': (150, 250),
+            'Canal': (800, 1200),
+            'Couronne': (1200, 2000),
+            'Implant': (3000, 5000),
+            'Extraction': (200, 400),
+            'Radiographie': (50, 100),
+            'Nettoyage': (100, 150),
+            'Examen': (90, 140)
+        }
+        
+        min_montant, max_montant = montants[type_soin]
+        montant = np.random.uniform(min_montant, max_montant)
+        
+        # Autres données
+        sexe = np.random.choice(['Homme', 'Femme'])
+        age = np.random.randint(18, 85)
+        clinique = np.random.choice(cliniques)
+        praticien = np.random.choice(praticiens)
+        type_patient = np.random.choice(['Standard', 'VIP', 'Premium'], p=[0.7, 0.2, 0.1])
+        
+        data.append({
+            'patientid': patient_id,
+            'nom': f'Nom{patient_id}',
+            'prénom': f'Prénom{patient_id}',
+            'sexe': sexe,
+            'âge': age,
+            'date_du_soin': date_soin,
+            'type_de_soin_normalisé': type_soin,
+            'montant_total_chf': round(montant, 2),
+            'nom_de_la_clinique': clinique,
+            'nom_complet_praticien': praticien,
+            'type_de_patient': type_patient
+        })
+    
+    return pd.DataFrame(data)
+
 # Fonction pour charger les données
 @st.cache_data
 def load_data():
-    # Corriger le chemin vers le dossier data/
-    df = pd.read_excel("data/patients_mis_a_jour.xlsx")
+    """Charger les données - utilise des données simulées si le fichier n'existe pas"""
+    try:
+        # Essayer de charger le fichier Excel
+        df = pd.read_excel("data/patients_mis_a_jour.xlsx")
+        st.sidebar.success("✅ Données réelles chargées")
+    except FileNotFoundError:
+        # Utiliser des données simulées
+        df = create_sample_data()
+        st.sidebar.warning("⚠️ Données simulées utilisées (fichier Excel non trouvé)")
+    except Exception as e:
+        # En cas d'autre erreur, utiliser des données simulées
+        df = create_sample_data()
+        st.sidebar.warning(f"⚠️ Données simulées utilisées (erreur: {str(e)[:50]}...)")
+    
     # Conversion de la date
     df['date_du_soin'] = pd.to_datetime(df['date_du_soin'], errors='coerce')
     # Création des colonnes temporelles
     df['Annee'] = df['date_du_soin'].dt.year
     df['Mois'] = df['date_du_soin'].dt.month
     df['Année-Mois'] = df['Annee'].astype(str) + '-' + df['Mois'].astype(str).str.zfill(2)
+    
     return df
 
 # Chargement des données
