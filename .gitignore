@@ -131,11 +131,6 @@ dmypy.json
 # Streamlit
 .streamlit/
 
-# Data files (optionnel - à retirer si vous voulez inclure les données)
-# *.xlsx
-# *.csv
-# *.xls
-
 # Logs
 *.log
 
@@ -157,4 +152,8 @@ Thumbs.db
 
 # Temporary files
 *.tmp
-*.temp 
+*.temp
+
+# Fichiers temporaires Excel (fichiers de verrouillage)
+~$*.xlsx
+~$*.xls 
