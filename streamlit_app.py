@@ -23,7 +23,8 @@ st.markdown("---")
 # Fonction pour charger les données
 @st.cache_data
 def load_data():
-    df = pd.read_excel("patients_mis_a_jour.xlsx")
+    # Corriger le chemin vers le dossier data/
+    df = pd.read_excel("data/patients_mis_a_jour.xlsx")
     # Conversion de la date
     df['date_du_soin'] = pd.to_datetime(df['date_du_soin'], errors='coerce')
     # Création des colonnes temporelles
