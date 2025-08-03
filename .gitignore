@@ -132,9 +132,9 @@ dmypy.json
 .streamlit/
 
 # Data files (optionnel - à retirer si vous voulez inclure les données)
-*.xlsx
-*.csv
-*.xls
+# *.xlsx
+# *.csv
+# *.xls
 
 # Logs
 *.log
