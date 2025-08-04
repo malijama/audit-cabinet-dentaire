@@ -332,8 +332,10 @@ elif page == "💰 Paiements et Créances":
         st.subheader("1. Analyse des délais de paiement")
         
         # Statistiques de paiement
-        taux_retard = df_filtered['retard'].mean() * 100
-        montant_retard = df_filtered[df_filtered['retard']]['montant_total_chf'].sum()
+        # Gérer les valeurs NaN dans la colonne retard
+        retard_boolean = df_filtered['retard'].fillna(False).astype(bool)
+        taux_retard = retard_boolean.mean() * 100
+        montant_retard = df_filtered[retard_boolean]['montant_total_chf'].sum()
         delai_moyen = df_filtered['retard_paiement_jours'].mean()
         
         col1, col2, col3 = st.columns(3)
@@ -353,14 +355,19 @@ elif page == "💰 Paiements et Créances":
             st.plotly_chart(fig, use_container_width=True)
         
         with col2:
-            fig = px.pie(values=df_filtered['retard'].value_counts().values, 
+            # Utiliser la même logique pour le graphique
+            retard_counts = retard_boolean.value_counts()
+            fig = px.pie(values=retard_counts.values, 
                          names=['À jour', 'En retard'], 
                          title="Répartition paiements en retard")
             st.plotly_chart(fig, use_container_width=True)
         
         # Analyse des retards par type de soin
         st.subheader("2. Taux de retard par type de soin")
-        retards_par_soin = df_filtered.groupby('type_de_soin_normalisé')['retard'].agg(['mean', 'sum', 'count']).round(4)
+        # Créer une colonne temporaire pour l'analyse
+        df_temp = df_filtered.copy()
+        df_temp['retard_clean'] = df_temp['retard'].fillna(False).astype(bool)
+        retards_par_soin = df_temp.groupby('type_de_soin_normalisé')['retard_clean'].agg(['mean', 'sum', 'count']).round(4)
         retards_par_soin.columns = ['Taux_retard', 'Nombre_retards', 'Nombre_total']
         retards_par_soin['Taux_retard_pct'] = retards_par_soin['Taux_retard'] * 100
         
