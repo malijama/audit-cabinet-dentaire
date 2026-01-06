@@ -2,7 +2,7 @@
 
 ## 📊 Description du Projet
 
-Ce projet d'analyse de données vise à optimiser les performances d'un cabinet dentaire multi-sites en analysant les soins, les praticiens, les patients et les paiements. L'application fournit des insights stratégiques pour améliorer la rentabilité et la satisfaction client.
+Ce projet d'analyse de données vise à optimiser les performances d'un cabinet dentaire multi-sites en analysant les soins, les praticiens, les patients et les paiements. Le dashboard Power BI fournit des insights stratégiques pour améliorer la rentabilité et la satisfaction client.
 
 ## 🎯 Objectifs
 
@@ -13,88 +13,52 @@ Ce projet d'analyse de données vise à optimiser les performances d'un cabinet 
 - **Analyse géographique** : Comparer les performances par clinique
 - **Analyse temporelle** : Identifier les tendances et saisonnalités
 
-## 🚀 Installation et Utilisation
+## 🚀 Utilisation
 
 ### Prérequis
-- Python 3.8+
-- pip
+- Python 3.8+ (pour analyse exploratoire)
+- Power BI Desktop
+- Excel ou outil similaire pour visualiser les données
 
-### Installation
+### Structure des Données
 
-1. **Cloner le repository**
+Le projet contient un fichier de données principal:
+- `data/patients_mis_a_jour.xlsx` - Données complètes des soins et patients
+
+### Analyse avec Jupyter Notebook
+
+1. **Ouvrir le notebook**
 ```bash
-git clone https://github.com/votre-username/audit-cabinet-dentaire.git
-cd audit-cabinet-dentaire
+jupyter notebook "Audit analytique d'un cabinet dentaire multi-sites.ipynb"
 ```
 
-2. **Installer les dépendances**
-```bash
-pip install -r requirements.txt
-```
+2. **Exécuter les cellules**
+Le notebook contient:
+- Nettoyage et préparation des données
+- Analyse exploratoire (EDA)
+- Calcul des KPI
+- Visualisations Python (Matplotlib, Seaborn)
 
-3. **Lancer l'application Streamlit**
-```bash
-streamlit run streamlit_app.py
-```
+### Dashboard Power BI
 
-4. **Ouvrir dans le navigateur**
-L'application sera accessible à l'adresse : `http://localhost:8501`
+**À venir**: Dashboard Power BI interactif pour visualiser:
+- KPI en temps réel
+- Performance par clinique
+- Analyse des praticiens
+- Tendances temporelles
 
 ## 📁 Structure du Projet
 
 ```
 audit-cabinet-dentaire/
-├── 📊 streamlit_app.py          # Application Streamlit principale
 ├── 📓 Audit analytique d'un cabinet dentaire multi-sites.ipynb  # Notebook Jupyter
 ├── 📋 requirements.txt           # Dépendances Python
 ├── 📖 README.md                 # Documentation
-├── 🗂️ data/                     # Données (à ajouter)
+├── 🗂️ data/                     # Données
 │   └── patients_mis_a_jour.xlsx
 ├── 📈 scripts/                  # Scripts utilitaires
-│   ├── analyze_notebook.py
-│   ├── add_analysis_sections.py
-│   ├── fix_notebook_columns.py
-│   └── test_notebook_fix.py
 └── 📊 visualisations/           # Graphiques générés
-    └── performance_soins.png
 ```
-
-## 🎨 Fonctionnalités de l'Application
-
-### 🏠 Dashboard Général
-- Métriques clés (patients, soins, CA)
-- Évolution du CA mensuel
-- Top 10 soins par chiffre d'affaires
-
-### 🦷 Performance des Soins
-- **Top 10 soins par CA** : Identification des soins les plus rentables
-- **Rentabilité moyenne** : CA / nombre d'actes par type de soin
-- **Soins par patient** : Distribution et statistiques
-
-### 👨‍⚕️ Analyse des Praticiens
-- **CA par praticien** : Performance individuelle
-- **Taux de fidélisation** : Capacité à fidéliser les patients
-- **Comparaison des performances** : Benchmark entre praticiens
-
-### 🧑‍🤝‍🧑 Analyse des Patients
-- **Taux de rétention** : % de patients revenus 2+ fois
-- **Temps entre soins** : Intervalles moyens
-- **Nouveaux patients** : Évolution mensuelle
-
-### 💰 Paiements et Créances
-- **Délais de paiement** : Distribution et seuils
-- **Taux de retard** : Analyse par type de soin
-- **Montants en retard** : Impact financier
-
-### 🏥 Analyse Géographique
-- **CA par clinique** : Performance par site
-- **Patients par clinique** : Répartition géographique
-- **Taux VIP par région** : Analyse de la clientèle
-
-### 📅 Analyse Temporelle
-- **CA par période** : Mensuel, trimestriel, annuel
-- **Saisonnalité** : Répartition des soins dans l'année
-- **Tendances** : Évolution temporelle
 
 ## 📊 KPIs Principaux
 
@@ -108,13 +72,13 @@ audit-cabinet-dentaire/
 
 ## 🔧 Technologies Utilisées
 
-- **Streamlit** : Interface utilisateur interactive
-- **Pandas** : Manipulation et analyse de données
-- **Plotly** : Visualisations interactives
-- **NumPy** : Calculs numériques
-- **Matplotlib/Seaborn** : Graphiques statiques
+- **Python** : Analyse de données et préparation
+- **Pandas** : Manipulation et nettoyage de données
+- **Matplotlib/Seaborn** : Visualisations exploratoires
+- **Jupyter Notebook** : Analyse interactive
+- **Power BI** : Dashboard business intelligence (en développement)
 
-## 📈 Exemples d'Insights
+## 📈 Insights Clés
 
 ### Performance des Soins
 - Les **implants** génèrent le CA le plus élevé
@@ -145,14 +109,8 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 ## 👨‍💻 Auteur
 
-**Votre Nom** - [votre-email@example.com](mailto:votre-email@example.com)
-
-## 🙏 Remerciements
-
-- Équipe de développement
-- Cabinet dentaire pour les données
-- Communauté Streamlit
+**Mohamed Ali Jama** - [@malijama](https://github.com/malijama)
 
 ---
 
-⭐ **N'oubliez pas de donner une étoile au projet si vous l'aimez !**# Force redeploy for Streamlit Cloud
+⭐ **N'oubliez pas de donner une étoile au projet si vous l'aimez !**
